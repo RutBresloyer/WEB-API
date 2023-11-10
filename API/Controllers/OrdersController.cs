@@ -36,7 +36,6 @@ namespace API.Controllers
         public async Task <IActionResult> Post([FromBody]Order order)
         {
 
-
             Order newOrder = await _orderService.addOrder(order);
             if (newOrder == null)
             {
