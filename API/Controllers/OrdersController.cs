@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
+using Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,12 +10,19 @@ namespace API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        // GET: api/<OrdersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        IOrderService _orderService;
+
+        public OrdersController(IOrderService orderService)
         {
-            return new string[] { "value1", "value2" };
+            _orderService = orderService;
         }
+        // GET: api/<OrdersController>
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
@@ -23,21 +32,29 @@ namespace API.Controllers
         }
 
         // POST api/<OrdersController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost]   
+        public async Task <IActionResult> Post([FromBody]Order order)
         {
+
+
+            Order newOrder = await _orderService.addOrder(order);
+            if (newOrder == null)
+            {
+                return NoContent();
+            }
+            return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, newOrder);
         }
 
         // PUT api/<OrdersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/<OrdersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<OrdersController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
