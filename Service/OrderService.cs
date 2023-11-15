@@ -1,4 +1,7 @@
-﻿using Entities;
+﻿
+
+
+using Entities;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -7,8 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Service
+
 {
-    public class OrderService : IOrderService
+    public class OrderService :IOrderService 
     {
         public IOrderRepository _orderRepository;
         public OrderService(IOrderRepository orderRepository)

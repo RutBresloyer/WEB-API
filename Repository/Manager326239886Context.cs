@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public partial class Manager326239886Context : DbContext, IManager326239886Context
+public partial class Manager326239886Context : DbContext
 {
     public Manager326239886Context()
     {
@@ -41,6 +41,9 @@ public partial class Manager326239886Context : DbContext, IManager326239886Conte
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("Category_Name");
+            entity.Property(e => e.Img)
+                .HasMaxLength(100)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -82,6 +85,9 @@ public partial class Manager326239886Context : DbContext, IManager326239886Conte
 
             entity.Property(e => e.ProductId).HasColumnName("Product_Id");
             entity.Property(e => e.CategoryId).HasColumnName("Category_Id");
+            entity.Property(e => e.Img)
+                .HasMaxLength(100)
+                .IsUnicode(false);
             entity.Property(e => e.Price).HasColumnType("money");
             entity.Property(e => e.ProductDescription)
                 .HasMaxLength(100)

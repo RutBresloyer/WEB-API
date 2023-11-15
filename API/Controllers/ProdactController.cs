@@ -19,45 +19,17 @@ namespace API.Controllers
         {
             _prodactService = prodactService;
         }
+     
         // GET: api/<ProdactController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Product>>> Get(string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds, int position = 1, int skip = 8)
         {
-            return new string[] { "hhhh" };
-        }
-
-        // GET api/<ProdactController>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Product>>> Get(int id)
-        {
-            List<Product> products = (List<Product>)await _prodactService.getProdactsByCategory(id);
-
-
+            List<Product> products = (List<Product>)await _prodactService.getProducts(position, skip, desc, minPrice, maxPrice, categoryIds);
             if (products.Count() == 0)
             {
                 return NoContent();
             }
             return Ok(products);
-
-
         }
-
-        //// POST api/<ProdactController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/<ProdactController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<ProdactController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

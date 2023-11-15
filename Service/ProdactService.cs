@@ -23,5 +23,11 @@ namespace Service
             return await _prodactRepository.getProdactsByCategory(categoryId);
         }
 
+        public async Task<IEnumerable<Product>> getProducts(int position, int skip, string? desc, int? minPrice,
+          int? maxPrice, int?[] categoryIds)
+        {
+            return await _prodactRepository.getProducts(position, skip, desc, minPrice, maxPrice, categoryIds);
+        }
+
     }
 }
